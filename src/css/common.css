@@ -16,3 +16,35 @@ img {
   display: block;
   max-width: 100%;
 }
+
+.btn {
+  width: 160px;
+  text-decoration: none;
+  color: #fff;
+  background-color: #26a69a;
+  text-align: center;
+  letter-spacing: 0.5px;
+  transition: 0.2s ease-out;
+  cursor: pointer;
+  font-size: 1rem;
+  outline: 0;
+  border: none;
+  border-radius: 2px;
+  display: inline-block;
+  height: 36px;
+  line-height: 36px;
+  padding: 0 2rem;
+  text-transform: uppercase;
+  vertical-align: middle;
+  -webkit-tap-highlight-color: transparent;
+  box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 1px 5px 0 rgb(0 0 0 / 12%),
+    0 3px 1px -2px rgb(0 0 0 / 20%);
+}
+
+.btn:hover {
+  background-color: #2bbbad;
+}
+
+.btn:disabled {
+  background-color: gray;
+}
