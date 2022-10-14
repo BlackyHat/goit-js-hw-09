@@ -48,3 +48,22 @@ img {
 .btn:disabled {
   background-color: gray;
 }
+
+.timer {
+  margin-top: 24px;
+  display: flex;
+  gap: 24px;
+  text-align: center;
+  font-family: cursive;
+  font-size: 32px;
+}
+
+.timer .label {
+  font-size: 21px;
+}
+
+.timer .field {
+  width: 80px;
+  display: flex;
+  flex-direction: column;
+}
