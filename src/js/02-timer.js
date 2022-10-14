@@ -41,7 +41,7 @@ function onBtnStartClick() {
   timerId = setInterval(() => {
     const currentTime = new Date();
 
-    timeIntervalMs = targetTime.getTime() - currentTime.getTime();
+    const timeIntervalMs = targetTime.getTime() - currentTime.getTime();
 
     const countdown = convertMs(timeIntervalMs);
 
