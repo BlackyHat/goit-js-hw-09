@@ -1,9 +1,10 @@
 import flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.min.css';
+
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import 'notiflix/dist/notiflix-3.2.5.min.css';
 
-let targetTime = null;
+let targetTime = '';
 let timerId = null;
 
 const optionsFlatpickr = {
@@ -40,12 +41,12 @@ function onBtnStartClick() {
   timerId = setInterval(() => {
     const currentTime = new Date();
 
-    dateIntervalMs = targetTime.getTime() - currentTime.getTime();
+    timeIntervalMs = targetTime.getTime() - currentTime.getTime();
 
-    const countdown = convertMs(dateIntervalMs);
+    const countdown = convertMs(timeIntervalMs);
 
     updateClockValue(countdown);
-    isCountdownEnd(dateIntervalMs, timerId);
+    isCountdownEnd(timeIntervalMs, timerId);
   }, 1000);
 }
 
@@ -97,6 +98,7 @@ function validDate(date) {
   targetTime = new Date(date);
   const currentDate = new Date();
   if (targetTime < currentDate) {
+    refs.btnStart.setAttribute('disabled', '');
     return Notify.failure('Please choose a date in the future');
   }
   Notify.info('Push start for begining');
