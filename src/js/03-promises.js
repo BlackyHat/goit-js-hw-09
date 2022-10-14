@@ -13,56 +13,41 @@ refs.form.addEventListener('click', onClickSubmit);
 
 function onClickSubmit(e) {
   e.preventDefault();
+
   if (e.target.type === 'submit') {
     e.target.toggleAttribute('disabled');
-    const delay = refs.form.delay.value;
-    const step = refs.form.step.value;
-    const amount = refs.form.amount.value;
-    let count = 0;
+    let delay = Number(refs.form.delay.value);
+    const step = Number(refs.form.step.value);
+    const amount = Number(refs.form.amount.value);
 
     //==================================================
+    for (let i = 1; i <= amount; i += 1) {
+      createPromise(i, delay)
+        .then(({ position, delay }) => {
+          Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);
+        })
+        .catch(({ position, delay }) => {
+          Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`);
+        });
+      delay += step;
+    }
+    //================================================== toggle submit button
     setTimeout(() => {
-      timerId = setInterval(() => {
-        count += 1;
-        let isTrue = Number(amount) === Number(count);
-
-        if (isTrue) {
-          clearInterval(timerId);
-          e.target.toggleAttribute('disabled');
-        }
-        //==================================================
-        createPromise(count, step)
-          .then(({ position, delay }) => {
-            Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);
-          })
-          .catch(({ position, delay }) => {
-            Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`);
-          });
-        //==================================================
-      }, step);
+      e.target.toggleAttribute('disabled');
     }, delay);
-
-    //==================================================
   }
 }
 
 function createPromise(position, delay) {
-  const promise = new Promise((resolve, reject) => {
-    const shouldResolve = Math.random() > 0.3;
-    // Asynchronous operation
-    const newOptions = {
-      position,
-      delay,
-    };
-    if (shouldResolve) {
-      // Fulfill
-      resolve(newOptions);
-    }
-    // Reject
-    else {
-      reject(newOptions);
-    }
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      const shouldResolve = Math.random() > 0.3;
+      const newOptions = { position, delay };
+      if (shouldResolve) {
+        resolve(newOptions);
+      } else {
+        reject(newOptions);
+      }
+    }, delay);
   });
-
-  return promise;
 }
